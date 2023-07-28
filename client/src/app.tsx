@@ -9,10 +9,10 @@ import DashBoard from "./pages/Dashboard"
 
 const App:React.FC = () => {
   return (
- <Routes>
-  <Route path='/' element={<Auth/>}/>
-  <Route path='dashboard' element={<DashBoard/>} /> 
- </Routes>
+    <Routes>
+      <Route path='/' element={<Auth/>}/>
+      <Route path='dashboard' element={<DashBoard/>} /> 
+    </Routes>
   )
 }
 
