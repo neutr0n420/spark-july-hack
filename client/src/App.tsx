@@ -1,6 +1,18 @@
-const App = () => {
+import React from "react"
+import {
+  Routes,
+  Route,
+} from "react-router-dom"
+
+import Auth from "./pages/Auth"
+import DashBoard from "./pages/Dashboard"
+
+const App:React.FC = () => {
   return (
-  <div className="text-3xl">Hello, world</div>
+ <Routes>
+  <Route path='/' element={<Auth/>}/>
+  <Route path='dashboard' element={<DashBoard/>} /> 
+ </Routes>
   )
 }
 
