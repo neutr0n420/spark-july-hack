@@ -1,5 +1,6 @@
 import { Express, Request, Response, response } from "express";
 import SQL from "./utils/connect";
+import { createClient } from "redis";
 
 type temp = {
   email: string 
@@ -17,7 +18,15 @@ function routes(app: Express) {
     res.json(`User added with ID: ${newObj[0].id}`)
   } )
   app.get('/api/resolve/:url', async(req:Request, res:Response)=>{
-   console.log(req.params.url)
+    const client = createClient()
+    await client.connect()
+    
+    await client.set('aryan', "https://google.com")
+   const originalUrl:string|null = await client.get(req.params.url)
+  if(originalUrl){
+    res.redirect(originalUrl)
+  }
+  res.status(404).send("Enter valid URL!")
   })
 }
 
