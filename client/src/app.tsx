@@ -9,6 +9,7 @@ import {
 import DashBoard from "./pages/Dashboard";
 import Index from "./pages/Index";
 import Attandance from "./pages/Attendance";
+import AttendanceForm from "./pages/Forms";
 
 const App: React.FC = () => {
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -31,6 +32,7 @@ const App: React.FC = () => {
             </>
           }/>
           <Route path="/attendance" element= {<Attandance/>}/>
+          <Route path='/form' element={<AttendanceForm/>}/>
         </Routes>
       </ClerkProvider>
     </>
