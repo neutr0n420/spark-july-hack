@@ -1,21 +1,46 @@
-import { Express, Request, Response, response } from "express";
+import { Express, Request, Response } from "express";
 import SQL from "./utils/connect";
+import { CreateClient } from "./utils/redis";
+import { nanoid } from "nanoid";
 
 type temp = {
-  email: string 
-  name: string
-}
+  email: string;
+  name: string;
+};
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
-  app.get('/', async (request , response) => {const getResult = await SQL`select * from users`;response.json(getResult);})
+  app.get("/", async (req: Request, res: Response) => {
+    const getResult = await SQL`select * from users`;
+    res.json(getResult);
+  });
 
-  app.post('/api/add', async(req: Request , res: Response) => {
-  const {email , name} : temp = req.body
-    const newObj = await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`
-    res.json(`User added with ID: ${newObj[0].id}`)
-  } )
+  app.post("/api/add", async (req: Request, res: Response) => {
+    const { email, name }: temp = req.body;
+    const newObj =
+      await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`;
+    res.json(`User added with ID: ${newObj[0].id}`);
+  });
+
+  // Shorten endpoint
+  app.post("/api/shorten", async (req: Request, res: Response) => {
+    const { url } = req.body;
+    if (!url) {
+      res.status(400).json({ error: "URL is required" });
+    }
+    // database instance
+    const r = CreateClient();
+    await r.connect();
+
+    // generate randoms short id
+    const id = nanoid();
+
+    // set custom id to the original url
+    await r.set(id, url);
+
+    res.status(200).json({ url, id });
+  });
 }
 
 export default routes;
