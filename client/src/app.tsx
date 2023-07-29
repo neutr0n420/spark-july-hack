@@ -1,18 +1,36 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-import Auth from "@/pages/Auth";
-import DashBoard from "@/pages/Dashboard";
-import { Toaster } from "@/components/ui/toaster";
+import {
+  ClerkProvider,
+  SignIn,
+  SignedIn,
+} from "@clerk/clerk-react";
+import DashBoard from "./pages/Dashboard";
+import Index from "./pages/Index";
 
 const App: React.FC = () => {
+  if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
+    throw new Error("Missing Publishable key");
+  }
+  const clerkKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const navigate = useNavigate();
+  // console.log(clerkKey);
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="dashboard" element={<DashBoard />} />
-      </Routes>
-      <Toaster />
+      <ClerkProvider publishableKey={clerkKey} navigate={(to) => navigate(to)}>
+        <Routes>
+          <Route path="/" element={<Index/>} />
+          <Route path="/auth" element={<SignIn />} />
+          <Route path="/dashboard" element={
+            <>
+            <SignedIn>
+              <DashBoard/>
+            </SignedIn>
+            </>
+          }/>
+        </Routes>
+      </ClerkProvider>
     </>
   );
 };
