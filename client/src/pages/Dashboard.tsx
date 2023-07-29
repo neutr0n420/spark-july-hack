@@ -4,15 +4,21 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {SignOutButton, useUser} from "@clerk/clerk-react"
 import { SyntheticEvent } from "react"
+import { useNavigate } from "react-router-dom"
 
 const DashBoard:React.FC = () => {
     const user = useUser()
     const nameOfUser= user.user?.fullName
     // console.log(typeof(nameOfUser))
-
+    const navigate = useNavigate()
     const submitFunction = (e:SyntheticEvent) =>{
         e.preventDefault()
-        console.log('Generate QR Code')
+        navigate('/attendance')
+    }
+    const ValueOnChange = (event:InputEvent) =>{
+        const value:string = event.target?.value
+        console.log(value)
+
     }
     return (
         <>
@@ -29,7 +35,7 @@ const DashBoard:React.FC = () => {
             <br />
             <form onSubmit={submitFunction} className="w-64">
                 <Label htmlFor="className">Enter Class Name</Label>    
-                <Input id="className" placeholder="ClassName" /> 
+                <Input id="className" placeholder="ClassName" onChange={ValueOnChange}/> 
                 <Label>Select Time in Min's</Label>
                 <Select>
                     <SelectTrigger>
