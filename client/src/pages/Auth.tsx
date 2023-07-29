@@ -1,9 +1,12 @@
-const Auth:React.FC = () => {
-    return (
-        <>
-        login
-        </>
-    )
-} 
 
-export default Auth
+
+const Auth: React.FC = () => {
+ 
+  return (
+    <>
+      
+    </>
+  );
+};
+
+export default Auth;
