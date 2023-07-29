@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import config from "config";
 import routes from "./routes";
 import logger from "./utils/logger";
-import SQL from './utils/connect'
+import SQL from "./utils/connect"
 const port = config.get<number>("port");
 const postgres = require('postgres')
 const app = express();
