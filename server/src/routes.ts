@@ -16,6 +16,9 @@ function routes(app: Express) {
     const newObj = await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`
     res.json(`User added with ID: ${newObj[0].id}`)
   } )
+  app.get('/api/resolve/:url', async(req:Request, res:Response)=>{
+   console.log(req.params.url)
+  })
 }
 
 export default routes;
