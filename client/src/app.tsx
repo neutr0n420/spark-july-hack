@@ -8,6 +8,7 @@ import {
 } from "@clerk/clerk-react";
 import DashBoard from "./pages/Dashboard";
 import Index from "./pages/Index";
+import Attandance from "./pages/Attendance";
 
 const App: React.FC = () => {
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             </SignedIn>
             </>
           }/>
+          <Route path="/attendance" element= {<Attandance/>}/>
         </Routes>
       </ClerkProvider>
     </>
