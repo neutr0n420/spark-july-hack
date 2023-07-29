@@ -22,6 +22,22 @@ function routes(app: Express) {
       await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`;
     res.json(`User added with ID: ${newObj[0].id}`);
   });
+  app.get("/api/:url", async (req: Request, res: Response) => {
+    const client = CreateClient();
+    await client.connect();
+
+    const originalUrl: string | null = await client.get(req.params.url);
+    if (originalUrl) {
+      res.redirect(originalUrl);
+    }
+    res.status(404).send("Enter valid URL!");
+  });
+  app.post("/api/add", async (req: Request, res: Response) => {
+    const { email, name }: temp = req.body;
+    const newObj =
+      await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`;
+    res.json(`User added with ID: ${newObj[0].id}`);
+  });
 
   // Shorten endpoint
   app.post("/api/shorten", async (req: Request, res: Response) => {
