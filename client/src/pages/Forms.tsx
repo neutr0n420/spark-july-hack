@@ -24,7 +24,6 @@ const AttendanceForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rollnumber, setRollNumber] = useState("");
-  const [temp, setTemp] = useState();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -107,11 +106,5 @@ const AttendanceForm: React.FC = () => {
     </>
   );
 };
-    const onSubmit = async(e) => {
-        e.preventDefault()
-        const newObj:object = {email,password,rollnumber}
-        // axios.post('/form',newObj).then(
-        //   res => 
-        // )
 
 export default AttendanceForm;
