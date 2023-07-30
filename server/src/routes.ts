@@ -95,8 +95,8 @@ function routes(app: Express) {
     else{
       res.json('Password Dhang se DALL')
     }
-
   })
+
 }
 
 export default routes;
