@@ -8,13 +8,18 @@ type temp = {
   name: string;
 };
 
+//Check's the server is working fine or not
+
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
+
 
   app.get("/", async (req: Request, res: Response) => {
     const getResult = await SQL`select * from users`;
     res.json(getResult);
   });
+
+// Add the user with the name and it's email
 
   app.post("/api/add", async (req: Request, res: Response) => {
     const { email, name }: temp = req.body;
@@ -22,9 +27,16 @@ function routes(app: Express) {
       await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`;
     res.json(`User added with ID: ${newObj[0].id}`);
   });
+
+  //Convert the shortned url into to orignal URL using Redis
+  
   app.get("/api/:url", async (req: Request, res: Response) => {
+    //Initlizing the Redis
     const client = CreateClient();
+    // Connecting to the Redis Client
     await client.connect();
+
+    //Getting the Value from the key value pair
 
     const originalUrl: string | null = await client.get(req.params.url);
     if (originalUrl) {
@@ -32,12 +44,8 @@ function routes(app: Express) {
     }
     res.status(404).send("Enter valid URL!");
   });
-  app.post("/api/add", async (req: Request, res: Response) => {
-    const { email, name }: temp = req.body;
-    const newObj =
-      await SQL`insert into users(name ,email) values (${name} , ${email}) RETURNING *;`;
-    res.json(`User added with ID: ${newObj[0].id}`);
-  });
+
+
 
   // Shorten endpoint
   app.post("/api/shorten", async (req: Request, res: Response) => {
