@@ -33,9 +33,9 @@ const AttendanceForm:React.FC = () => {
     const onSubmit = async(e) => {
         e.preventDefault()
         const newObj:object = {email,password,rollnumber}
-        axios.post('/form',newObj).then(
-          res => 
-        )
+        // axios.post('/form',newObj).then(
+        //   res => 
+        // )
 
     }
     return (

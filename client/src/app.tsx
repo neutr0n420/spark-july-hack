@@ -12,7 +12,7 @@ import Attandance from "./pages/Attendance";
 import AttendanceForm from "./pages/Forms";
 import Auth from "./pages/Auth";
 import Layout from "./layout";
-
+import GetAllStud from "./pages/getStud";
 const App: React.FC = () => {
  
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -55,6 +55,7 @@ const App: React.FC = () => {
             />
             <Route path="/attendance" element={<Attandance />} />
             <Route path="/form" element={<AttendanceForm />} />
+            <Route path='/allstuds' element={<GetAllStud/>} />
           </Route>
         </Routes>
       </ClerkProvider>
