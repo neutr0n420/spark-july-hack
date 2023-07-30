@@ -1,15 +1,10 @@
-import { FC } from "react";
 import { Link } from "react-router-dom";
 import { Icons } from "./icons";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
 import { SignOutButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 
-interface MainNavProps {
-  items?: string[];
-}
-
-const MainNav: FC<MainNavProps> = ({ items }) => {
+const MainNav = () => {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link to="/" className="items-center space-x-2 md:flex">
