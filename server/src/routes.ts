@@ -65,21 +65,25 @@ function routes(app: Express) {
     await r.disconnect();
   });
 
-  app.post('/api/createClassAndQr', async (req: Request, res: Response) => {
-      const { className }: { className: string } = req.body;
-      let createTableQuery:object ; 
-      className === 'DBMS' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp` :
-      className === 'ML' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists ML  AS SELECT * FROM studenttemp` :
-      className === 'OOPS' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists OOPS  AS SELECT * FROM studenttemp` :
-      className === 'PROJECTMANAGEMENT' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists PROJECTMANAGEMENT AS SELECT * FROM studenttemp` :
-      res.json({message : 'Give valid Classroom'}).end()
+  app.post("/api/createClassAndQr", async (req: Request, res: Response) => {
+    const { className }: { className: string } = req.body;
+    let createTableQuery: object;
+    className === "DBMS"
+      ? (createTableQuery =
+          await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp`)
+      : className === "ML"
+      ? (createTableQuery =
+          await SQL`CREATE TABLE if not exists ML  AS SELECT * FROM studenttemp`)
+      : className === "OOPS"
+      ? (createTableQuery =
+          await SQL`CREATE TABLE if not exists OOPS  AS SELECT * FROM studenttemp`)
+      : className === "PROJECTMANAGEMENT"
+      ? (createTableQuery =
+          await SQL`CREATE TABLE if not exists PROJECTMANAGEMENT AS SELECT * FROM studenttemp`)
+      : res.json({ message: "Give valid Classroom" }).end();
 
-      res.json({ message:"http://localhost:5173/form" });
-  }); 
+    res.json({ message: "http://localhost:5173/form" });
+  });
 }
 
 export default routes;
