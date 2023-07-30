@@ -3,13 +3,17 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 import {
   ClerkProvider,
+  RedirectToSignIn,
   SignIn,
   SignedIn,
+  SignedOut,
 } from "@clerk/clerk-react";
 import DashBoard from "./pages/Dashboard";
 import Index from "./pages/Index";
 import Attandance from "./pages/Attendance";
 import AttendanceForm from "./pages/Forms";
+import Auth from "./pages/Auth";
+import Layout from "./layout";
 
 const App: React.FC = () => {
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -22,17 +26,37 @@ const App: React.FC = () => {
     <>
       <ClerkProvider publishableKey={clerkKey} navigate={(to) => navigate(to)}>
         <Routes>
-          <Route path="/" element={<Index/>} />
-          <Route path="/auth" element={<SignIn />} />
-          <Route path="/dashboard" element={
-            <>
-            <SignedIn>
-              <DashBoard/>
-            </SignedIn>
-            </>
-          }/>
-          <Route path="/attendance" element= {<Attandance/>}/>
-          <Route path='/form' element={<AttendanceForm/>}/>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Index />} />
+            <Route
+              path="/auth"
+              element={
+                <>
+                  <SignedIn>
+                    <DashBoard />
+                  </SignedIn>
+                  <SignedOut>
+                    <Auth />
+                  </SignedOut>
+                </>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <>
+                  <SignedIn>
+                    <DashBoard />
+                  </SignedIn>
+                  <SignedOut>
+                    <RedirectToSignIn />
+                  </SignedOut>
+                </>
+              }
+            />
+            <Route path="/attendance" element={<Attandance />} />
+            <Route path="/form" element={<AttendanceForm />} />
+          </Route>
         </Routes>
       </ClerkProvider>
     </>
