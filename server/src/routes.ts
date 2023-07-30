@@ -39,10 +39,7 @@ function routes(app: Express) {
     //Getting the Value from the key value pair
 
     const originalUrl: string | null = await client.get(req.params.url);
-    if (originalUrl) {
-      res.redirect(originalUrl);
-    }
-    res.status(404).send("Enter valid URL!");
+    originalUrl?res.redirect(originalUrl):res.status(404).send("Enter Valid URL")
   });
 
 
