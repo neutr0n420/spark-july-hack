@@ -26,54 +26,54 @@ function routes(app: Express) {
   });
 
   //Convert the shortned url into to orignal URL using Redis
-  app.get("/api/:id", async (req: Request, res: Response) => {
-    const id = req.params.url;
+  // app.get("/api/:id", async (req: Request, res: Response) => {
+  //   const id = req.params.url;
 
-    // database instance
-    const r = CreateClient();
-    await r.connect();
+  //   // database instance
+  //   const r = CreateClient();
+  //   await r.connect();
 
-    const count = await r.hGet(id, "count");
-    if (count && Number(count) !== 0) {
-      res.status(404).send("URL is inaccessible");
-      await r.disconnect();
-      return;
-    }
+  //   const count = await r.hGet(id, "count");
+  //   if (count && Number(count) !== 0) {
+  //     res.status(404).send("URL is inaccessible");
+  //     await r.disconnect();
+  //     return;
+  //   }
 
-    //Getting the Value from the key value pair
+  //   //Getting the Value from the key value pair
 
-    await r.disconnect();
-  });
+  //   await r.disconnect();
+  // });
 
   // Shorten endpoint
-  app.post("/api/shorten", async (req: Request, res: Response) => {
-    const body = req.body;
-    const url: string = body.url;
-    const count = 0;
+  // app.post("/api/shorten", async (req: Request, res: Response) => {
+  //   const body = req.body;
+  //   const url: string = body.url;
+  //   const count = 0;
 
-    if (!url) {
-      res.status(400).json({ error: "URL is required" });
-    }
+  //   if (!url) {
+  //     res.status(400).json({ error: "URL is required" });
+  //   }
 
-    // database instance
-    const r = CreateClient();
-    await r.connect();
+  //   // database instance
+  //   const r = CreateClient();
+  //   await r.connect();
 
-    // generate randoms short id
-    const id = nanoid();
+  //   // generate randoms short id
+  //   const id = nanoid();
 
-    const rHash = {
-      url,
-      count,
-    };
+  //   const rHash = {
+  //     url,
+  //     count,
+  //   };
 
-    // set custom id to the original url
-    await r.hSet(id, rHash);
+  //   // set custom id to the original url
+  //   await r.hSet(id, rHash);
 
-    res.status(200).json({ url, id, accessedCount: count });
+  //   res.status(200).json({ url, id, accessedCount: count });
 
-    await r.disconnect();
-  });
+  //   await r.disconnect();
+  // });
 }
 
 export default routes;
