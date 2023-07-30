@@ -7,7 +7,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   
   <React.StrictMode>
     <BrowserRouter>
-      <div className='bg-[#0D47A1] min-h-screen flex justify-center items-center'>
+      <div>
             <App />
       </div>
   </BrowserRouter>

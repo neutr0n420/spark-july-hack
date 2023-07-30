@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import {
@@ -12,6 +12,7 @@ import Attandance from "./pages/Attendance";
 import AttendanceForm from "./pages/Forms";
 
 const App: React.FC = () => {
+  const [changeInRoute, setChangeInRoute] = useState("form")
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
     throw new Error("Missing Publishable key");
   }
@@ -32,7 +33,7 @@ const App: React.FC = () => {
             </>
           }/>
           <Route path="/attendance" element= {<Attandance/>}/>
-          <Route path='/form' element={<AttendanceForm/>}/>
+          <Route path={`/${changeInRoute}`} element={<AttendanceForm/>}/>
         </Routes>
       </ClerkProvider>
     </>
