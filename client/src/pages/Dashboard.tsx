@@ -48,12 +48,23 @@ const DashBoard: React.FC = () => {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="className">Enter Class Name</Label>
+              {/* <Label htmlFor="className">Enter Class Name</Label>
               <Input
                 id="className"
                 placeholder="ClassName"
                 onChange={ValueOnChange}
-              />
+              /> */}
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Name of Class" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="30:00">DBMS</SelectItem>
+                  <SelectItem value="45:00">OOPS</SelectItem>
+                  <SelectItem value="60:00">Project Managment</SelectItem>
+                  <SelectItem value="120:00">ML</SelectItem>
+                </SelectContent>
+              </Select> 
             </div>
             <div className="grid gap-2">
               <Label>Select Time in Mins</Label>

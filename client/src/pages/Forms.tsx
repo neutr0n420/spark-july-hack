@@ -12,6 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+// import { Card } from '@/components/ui/card'
+
 
 const FormSchema = z.object({
         email : z.string().email(),
@@ -29,7 +31,8 @@ const AttendanceForm:React.FC = () => {
         console.log(values)
     }
     return (
-        <>
+        <div className='max-w-4xl mx-auto'>
+          
          <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
@@ -80,10 +83,10 @@ const AttendanceForm:React.FC = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Mark Attendance</Button>
       </form>
     </Form> 
-        </>
+        </div>
     )
 }
 

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
-    <section className="bg-black flex justify-center items-center py-72 overflow-hidden ">
+    <section className="bg-black flex justify-center items-center py-44 overflow-hidden ">
       <div className="w-96 text-justify">
         <h1 className="font-gloock text-4xl text-[#D6D6D6]">
           Attendance Application
