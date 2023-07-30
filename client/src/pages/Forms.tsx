@@ -12,7 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import { useState } from 'react'
+import axios from 'axios'
 const FormSchema = z.object({
         email : z.string().email(),
         password : z.string(),
@@ -20,18 +21,27 @@ const FormSchema = z.object({
     })
 
 const AttendanceForm:React.FC = () => {
+    const [email, setEmail] = useState('')
+    const [password , setPassword] = useState('')
+    const [rollnumber , setRollNumber] = useState('')
+    const [temp , setTemp] = useState()
 
     const form =useForm<z.infer<typeof FormSchema>>({
         resolver:zodResolver(FormSchema) 
     })
 
-    const onSubmit = (values: z.infer<typeof FormSchema>) => {
-        console.log(values)
+    const onSubmit = async(e) => {
+        e.preventDefault()
+        const newObj:object = {email,password,rollnumber}
+        axios.post('/form',newObj).then(
+          res => 
+        )
+
     }
     return (
         <>
          <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={onSubmit} className="space-y-8">
         <FormField
           control={form.control}
           name="email"
@@ -39,7 +49,7 @@ const AttendanceForm:React.FC = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input required type='email' placeholder="shadcn" {...field} />
+                <Input required type='email' placeholder="shadcn" {...field} onChange={e => setEmail(e.target.value)} value={email}/>
               </FormControl>
               <FormDescription>
                 This is your Email
@@ -55,7 +65,7 @@ const AttendanceForm:React.FC = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input  type='password' placeholder="****" {...field} />
+                <Input  type='password' placeholder="****" {...field} value={password} onChange={e => setPassword(e.target.value)}/>
               </FormControl>
               <FormDescription>
                 This is your Password.
@@ -71,7 +81,7 @@ const AttendanceForm:React.FC = () => {
             <FormItem>
               <FormLabel>rollnumber</FormLabel>
               <FormControl>
-                <Input placeholder="17" {...field} />
+                <Input placeholder="17" {...field} value={rollnumber} onChange={e => setRollNumber(e.target.value)} />
               </FormControl>
               <FormDescription>
                 This is your Rollnumber.
