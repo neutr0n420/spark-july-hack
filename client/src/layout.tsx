@@ -8,7 +8,7 @@ const Layout = () => {
       <header className="container">
         <Nav />
       </header>
-      <main className="flex-1 container">
+      <main className="flex-1 ">
         <Outlet />
       </main>
       <Footer />

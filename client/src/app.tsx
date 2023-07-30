@@ -1,10 +1,8 @@
-import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import {
   ClerkProvider,
   RedirectToSignIn,
-  SignIn,
   SignedIn,
   SignedOut,
 } from "@clerk/clerk-react";
@@ -16,6 +14,7 @@ import Auth from "./pages/Auth";
 import Layout from "./layout";
 
 const App: React.FC = () => {
+ 
   if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
     throw new Error("Missing Publishable key");
   }
