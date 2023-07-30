@@ -12,8 +12,8 @@ function routes(app: Express) {
   //Check's the server is working fine or not
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
 
-  app.get("/api/users", async (req: Request, res: Response) => {
-    const getResult = await SQL`select * from users`;
+  app.get("/api/getstuds", async (req: Request, res: Response) => {
+    const getResult = await SQL`select * from dbms`;
     res.json(getResult);
   });
 
