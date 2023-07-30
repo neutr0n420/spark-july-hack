@@ -39,9 +39,7 @@ function routes(app: Express) {
       await r.disconnect();
       return;
     }
-
     //Getting the Value from the key value pair
-
     await r.disconnect();
   });
 
@@ -50,30 +48,38 @@ function routes(app: Express) {
     const body = req.body;
     const url: string = body.url;
     const count = 0;
-
     if (!url) {
       res.status(400).json({ error: "URL is required" });
     }
-
     // database instance
     const r = CreateClient();
     await r.connect();
-
     // generate randoms short id
     const id = nanoid();
-
     const rHash = {
       url,
       count,
     };
-
-    // set custom id to the original url
     await r.hSet(id, rHash);
-
     res.status(200).json({ url, id, accessedCount: count });
-
     await r.disconnect();
   });
+
+  app.post('/api/createClassAndQr', async (req: Request, res: Response) => {
+      const { className }: { className: string } = req.body;
+      let createTableQuery:object ; 
+      className === 'DBMS' ?
+      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp` :
+      className === 'ML' ?
+      createTableQuery = await SQL`CREATE TABLE if not exists ML  AS SELECT * FROM studenttemp` :
+      className === 'OOPS' ?
+      createTableQuery = await SQL`CREATE TABLE if not exists OOPS  AS SELECT * FROM studenttemp` :
+      className === 'PROJECTMANAGEMENT' ?
+      createTableQuery = await SQL`CREATE TABLE if not exists PROJECTMANAGEMENT AS SELECT * FROM studenttemp` :
+      res.json({message : 'Give valid Classroom'}).end()
+
+      res.json({ message:"http://localhost:5173/form" });
+  }); 
 }
 
 export default routes;
