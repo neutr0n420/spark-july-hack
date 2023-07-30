@@ -77,9 +77,26 @@ function routes(app: Express) {
       className === 'PROJECTMANAGEMENT' ?
       createTableQuery = await SQL`CREATE TABLE if not exists PROJECTMANAGEMENT AS SELECT * FROM studenttemp` :
       res.json({message : 'Give valid Classroom'}).end()
-
       res.json({ message:"http://localhost:5173/form" });
   }); 
+
+  app.post('/api/pushtodb', async (req:Request , res:Response) => {
+
+    const {email,password,rollnumber} : {email:string, password:string, rollnumber:string} = req.body
+    const checkUserPassword = await SQL`select password from studenttable 
+                                where email = ${email};`
+    if(checkUserPassword[0].password.toString() === password.toString()){
+      const pushToDb = await SQL`insert into DBMS(email,rollnumber)
+       values
+       (${email},${rollnumber});
+       `
+       res.json(pushToDb)
+    }
+    else{
+      res.json('Password Dhang se DALL')
+    }
+
+  })
 }
 
 export default routes;
