@@ -16,7 +16,7 @@ type UserProp = z.infer <typeof userObj>
 const GetStuds:React.FC = () => {
     const [allStud , setAllStud] = useState<UserProp>()
     useEffect(()=> {
-        axios.get('http://localhost:3000/api/getstuds').then(
+        axios.get('https://attendance-kl6p.onrender.com/api/getstuds').then(
             res => {
                 setAllStud(res.data)
                 console.log(res.data)
