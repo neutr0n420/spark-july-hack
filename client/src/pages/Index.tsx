@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Index = () => {
+    
   return (
     <section className="bg-black flex justify-center items-center py-44 overflow-hidden ">
       <div className="w-96 text-justify">
@@ -11,11 +13,11 @@ const Index = () => {
           An attendance solution that you need for all your next class. Mark
           Student's attendance in One click using our app.
         </p>
-        <a href="http://localhost:5173/auth">
-          <Button className="bg-[#EBEBEB] w-96 hover:bg-white">
+        <Link to={'/auth'}>
+          <Button className="bg-[#EBEBEB] w-96 hover:bg-white" >
             <span className="text-black">Click here to Login</span>
           </Button>
-        </a>
+        </Link>
       </div>
       <img
         src="https://source.unsplash.com/G5HkBfwOths"

@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,21 +17,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@clerk/clerk-react";
-import {SyntheticEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { SyntheticEvent, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const DashBoard: React.FC = () => {
   const user = useUser();
   const nameOfUser = user.user?.fullName;
+  const [className, setClassName] = useState("");
   // console.log(typeof(nameOfUser))
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const submitFunction = (e: SyntheticEvent) => {
     e.preventDefault();
-    navigate("/attendance");
+    // navigate("/attendance");
+    console.log(className)
+    axios.post('http:localhost:3000/api/createClassAndQr',className)
+    .then(response => {
+      console.log(response.data)
+    })
   };
-
-
+  
   return (
     <div className="flex flex-col items-center h-full">
       <h1 className="text-3xl">Hello, {nameOfUser}</h1>
@@ -44,27 +49,32 @@ const DashBoard: React.FC = () => {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              {/* <Label htmlFor="className">Enter Class Name</Label>
-              <Input
-                id="className"
-                placeholder="ClassName"
-                onChange={ValueOnChange}
-              /> */}
-              <Select>
+              <Label>Select Name of the Class</Label>
+              <Select
+                onValueChange={(event: any) => {
+                  setClassName(event);
+                }}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Name of Class" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="30:00">DBMS</SelectItem>
-                  <SelectItem value="45:00">OOPS</SelectItem>
-                  <SelectItem value="60:00">Project Managment</SelectItem>
-                  <SelectItem value="120:00">ML</SelectItem>
+                  <SelectItem value="DBMS">DBMS</SelectItem>
+                  <SelectItem value="OOPS">OOPS</SelectItem>
+                  <SelectItem value="PROJECTMANAGMENT">
+                    Project Managment
+                  </SelectItem>
+                  <SelectItem value="ML">ML</SelectItem>
                 </SelectContent>
-              </Select> 
+              </Select>
             </div>
             <div className="grid gap-2">
               <Label>Select Time in Mins</Label>
-              <Select>
+              <Select
+                onValueChange={(e: any) => {
+                  console.log(e);
+                }}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Duration of Class" />
                 </SelectTrigger>

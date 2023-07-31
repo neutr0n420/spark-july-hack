@@ -69,7 +69,7 @@ function routes(app: Express) {
       const { className }: { className: string } = req.body;
       let createTableQuery:object ; 
       className === 'DBMS' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp` :
+      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp`: console.log('Created table of DBMS') ;
       className === 'ML' ?
       createTableQuery = await SQL`CREATE TABLE if not exists ML  AS SELECT * FROM studenttemp` :
       className === 'OOPS' ?
@@ -82,19 +82,22 @@ function routes(app: Express) {
 
   app.post('/api/pushtodb', async (req:Request , res:Response) => {
 
-    const {email,password,rollnumber} : {email:string, password:string, rollnumber:string} = req.body
+    const {email,password,rollnumber} : {email:string, password:string, rollnumber:string} = req.body || {}
     const checkUserPassword = await SQL`select password from studenttable 
                                 where email = ${email};`
-    if(checkUserPassword[0].password.toString() === password.toString()){
-      const pushToDb = await SQL`insert into DBMS(email,rollnumber)
-       values
-       (${email},${rollnumber});
-       `
-       res.json(pushToDb)
-    }
-    else{
-      res.json('Password Dhang se DALL')
-    }
+    // if(checkUserPassword[0].password.toString() === password.toString()){
+    //   const pushToDb = await SQL`insert into DBMS(email,rollnumber)
+    //    values
+    //    (${email},${rollnumber});
+    //    `
+    //    res.json(pushToDb)
+    // }
+    // else{
+    //   res.json('Invalid Passoword')
+    // }
+    console.log("Sab changa ji sab canga ji")
+    res.status(200).send({email, password, rollnumber})
+
   })
 
 }
