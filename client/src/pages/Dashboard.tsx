@@ -20,23 +20,30 @@ import { useUser } from "@clerk/clerk-react";
 import { SyntheticEvent, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import axios from "axios"
+import { Link } from "react-router-dom";
 
 const DashBoard: React.FC = () => {
   const user = useUser();
   const nameOfUser = user.user?.fullName;
   const [className, setClassName] = useState("");
+  const [temp , setTemp] = useState(false)
   // console.log(typeof(nameOfUser))
   // const navigate = useNavigate();
 
   const submitFunction = (e: SyntheticEvent) => {
     e.preventDefault();
     // navigate("/attendance");
+    const newObj = {
+      className : className
+    }
     console.log(className)
-    axios.post('http:localhost:3000/api/createClassAndQr',className)
+    axios.post('http://localhost:3000/api/createclassandqr',newObj)
     .then(response => {
       console.log(response.data)
     })
+    setTemp(true)
   };
+
   
   return (
     <div className="flex flex-col items-center h-full">
@@ -51,7 +58,7 @@ const DashBoard: React.FC = () => {
             <div className="grid gap-2">
               <Label>Select Name of the Class</Label>
               <Select
-                onValueChange={(event: any) => {
+                onValueChange={(event) => {
                   setClassName(event);
                 }}
               >
@@ -61,8 +68,8 @@ const DashBoard: React.FC = () => {
                 <SelectContent>
                   <SelectItem value="DBMS">DBMS</SelectItem>
                   <SelectItem value="OOPS">OOPS</SelectItem>
-                  <SelectItem value="PROJECTMANAGMENT">
-                    Project Managment
+                  <SelectItem value="ProjectManagment">
+                    ProjectManagment
                   </SelectItem>
                   <SelectItem value="ML">ML</SelectItem>
                 </SelectContent>
@@ -71,7 +78,7 @@ const DashBoard: React.FC = () => {
             <div className="grid gap-2">
               <Label>Select Time in Mins</Label>
               <Select
-                onValueChange={(e: any) => {
+                onValueChange={(e) => {
                   console.log(e);
                 }}
               >
@@ -88,9 +95,12 @@ const DashBoard: React.FC = () => {
             </div>
           </CardContent>
           <CardFooter>
+            {/* <Link to={'/attendance'}> */}
             <Button type="submit" className="w-full">
               Generate QR
             </Button>
+            {/* </Link> */}
+            {temp ? <Link to={'/attendance'}><Button>Take me to Qr</Button></Link> :null}
           </CardFooter>
         </Card>
       </form>

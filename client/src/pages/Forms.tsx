@@ -31,10 +31,10 @@ const AttendanceForm: React.FC = () => {
 
   const onSubmit = async (e:FormEvent) => {
     e.preventDefault();
-    const newObj: object = { email, password, rollnumber };
-    axios.post("http://localhost:3000/api/pushtodb", newObj).then((res) => {
-      console.log(res.data);
-    }).catch((err:Error) => alert(`Enter proper credentials${err}`));
+    const newObj2 = { email, password, rollnumber };
+    axios.post("http://localhost:3000/api/pushtodb", newObj2).then((res) => {
+    console.log(res.data)  
+  }).catch((err:Error) => alert(`Enter proper credentials${err}`));
     setEmail('')
     setPassword('')
     setRollNumber('')
