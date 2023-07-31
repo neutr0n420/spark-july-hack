@@ -86,9 +86,9 @@ function routes(app: Express) {
     const checkUserPassword = await SQL`select password from studenttable 
                                 where email = ${email};`
     if(checkUserPassword[0].password.toString() === password.toString()){
-      const pushToDb = await SQL`insert into DBMS(email,rollnumber)
+      const pushToDb = await SQL`insert into DBMS(rollnumber, email)
        values
-       (${email},${rollnumber});
+       (${rollnumber},${email});
        `
        res.json(pushToDb)
     }
