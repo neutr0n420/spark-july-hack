@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 import SQL from "./utils/connect";
 import { CreateClient } from "./utils/redis";
 import { nanoid } from "nanoid";
+require('express-async-errors')
 
 type user = {
   email: string;
@@ -69,7 +70,7 @@ function routes(app: Express) {
       const { className }: { className: string } = req.body;
       let createTableQuery:object ; 
       className === 'DBMS' ?
-      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp`: console.log('Created table of DBMS') ;
+      createTableQuery = await SQL`CREATE TABLE if not exists DBMS  AS SELECT * FROM studenttemp`: 
       className === 'ML' ?
       createTableQuery = await SQL`CREATE TABLE if not exists ML  AS SELECT * FROM studenttemp` :
       className === 'OOPS' ?
@@ -86,18 +87,23 @@ function routes(app: Express) {
     const checkUserPassword = await SQL`select password from studenttable 
                                 where email = ${email};`
 
-    if(checkUserPassword[0].password.toString() === password.toString()){
-      const pushToDb = await SQL`insert into DBMS(rollnumber, email)
+    try {
+     if(checkUserPassword[0].password.toString() === password.toString()){
+      const pushToDb = await SQL`insert into DBMS(rollnumber, email,time)
        values
-       (${rollnumber},${email});
+       (${rollnumber},${email},${new Date(new Date().getTime() + (5.5 * 60 * 60 * 1000))})
        `
        res.json(pushToDb)
+     }
+       else{
+      res.json('Plz enter password properly')
     }
-    else{
-      res.json('Password Dhang se DALL')
-    }
-
-  })
+  }
+  catch(error){
+  res.json('TypeError: Cannot read properties of undefined')
+  } 
+  }
+  )
 
 }
 

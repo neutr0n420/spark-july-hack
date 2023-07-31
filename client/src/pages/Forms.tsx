@@ -21,9 +21,9 @@ const FormSchema = z.object({
 });
 
 const AttendanceForm: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rollnumber, setRollNumber] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [rollnumber, setRollNumber] = useState<string>("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -34,9 +34,12 @@ const AttendanceForm: React.FC = () => {
     const newObj: object = { email, password, rollnumber };
     axios.post("http://localhost:3000/api/pushtodb", newObj).then((res) => {
       console.log(res.data);
-    });
+    }).catch((err:Error) => alert(`Enter proper credentials${err}`));
+    setEmail('')
+    setPassword('')
+    setRollNumber('')
   };
-  
+
   return (
     <>
       <Form {...form}>
