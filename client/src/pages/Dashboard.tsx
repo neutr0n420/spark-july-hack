@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@clerk/clerk-react";
-import { SyntheticEvent } from "react";
+import {SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DashBoard: React.FC = () => {
@@ -32,10 +32,6 @@ const DashBoard: React.FC = () => {
     navigate("/attendance");
   };
 
-  const ValueOnChange = (event: InputEvent) => {
-    const value: string = event.target?.value;
-    console.log(value);
-  };
 
   return (
     <div className="flex flex-col items-center h-full">

@@ -12,7 +12,7 @@ import { useToast } from "../ui/use-toast";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UserLoginForm({ className, ...props }): UserAuthFormProps {
+export function UserLoginForm({ ...props }): UserAuthFormProps {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
