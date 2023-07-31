@@ -3,8 +3,8 @@ import { SignIn } from "@clerk/clerk-react";
 
 const Auth: React.FC = () => {
   return (
-    <div>
-      <SignIn
+    <div className="w-1/2 mx-auto py-36 ">
+      <SignIn 
         appearance={{
           elements: {
             formButtonPrimary: buttonVariants({ variant: "default" }),

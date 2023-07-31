@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
 const FormSchema = z.object({
   email: z.string().email(),
@@ -29,7 +29,7 @@ const AttendanceForm: React.FC = () => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e:FormEvent) => {
     e.preventDefault();
     const newObj: object = { email, password, rollnumber };
     axios.post("/form", newObj).then((res) => {

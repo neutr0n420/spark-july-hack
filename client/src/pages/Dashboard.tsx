@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useUser } from "@clerk/clerk-react";
-import { SyntheticEvent } from "react";
+import {SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DashBoard: React.FC = () => {
@@ -32,10 +32,6 @@ const DashBoard: React.FC = () => {
     navigate("/attendance");
   };
 
-  const ValueOnChange = (event: InputEvent) => {
-    const value: string = event.target?.value;
-    console.log(value);
-  };
 
   return (
     <div className="flex flex-col items-center h-full">
@@ -48,12 +44,23 @@ const DashBoard: React.FC = () => {
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="className">Enter Class Name</Label>
+              {/* <Label htmlFor="className">Enter Class Name</Label>
               <Input
                 id="className"
                 placeholder="ClassName"
                 onChange={ValueOnChange}
-              />
+              /> */}
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Name of Class" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="30:00">DBMS</SelectItem>
+                  <SelectItem value="45:00">OOPS</SelectItem>
+                  <SelectItem value="60:00">Project Managment</SelectItem>
+                  <SelectItem value="120:00">ML</SelectItem>
+                </SelectContent>
+              </Select> 
             </div>
             <div className="grid gap-2">
               <Label>Select Time in Mins</Label>
