@@ -37,7 +37,7 @@ const DashBoard: React.FC = () => {
       className : className
     }
     console.log(className)
-    axios.post('http://localhost:3000/api/createclassandqr',newObj)
+    axios.post('https://attendance-kl6p.onrender.com/api/createclassandqr',newObj)
     .then(response => {
       console.log(response.data)
     })
@@ -95,12 +95,10 @@ const DashBoard: React.FC = () => {
             </div>
           </CardContent>
           <CardFooter>
-            {/* <Link to={'/attendance'}> */}
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-1/2">
               Generate QR
             </Button>
-            {/* </Link> */}
-            {temp ? <Link to={'/attendance'}><Button>Take me to Qr</Button></Link> :null}
+            {temp ? <Link to={'/attendance'}><Button className="ml-5 w-full">Take me to Qr</Button></Link> :null}
           </CardFooter>
         </Card>
       </form>

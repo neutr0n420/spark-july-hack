@@ -32,7 +32,7 @@ const AttendanceForm: React.FC = () => {
   const onSubmit = async (e:FormEvent) => {
     e.preventDefault();
     const newObj2 = { email, password, rollnumber };
-    axios.post("http://localhost:3000/api/pushtodb", newObj2).then((res) => {
+    axios.post("https://attendance-kl6p.onrender.com/api/pushtodb", newObj2).then((res) => {
     console.log(res.data)  
   }).catch((err:Error) => alert(`Enter proper credentials${err}`));
     setEmail('')
