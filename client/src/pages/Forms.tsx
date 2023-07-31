@@ -32,10 +32,11 @@ const AttendanceForm: React.FC = () => {
   const onSubmit = async (e:FormEvent) => {
     e.preventDefault();
     const newObj: object = { email, password, rollnumber };
-    axios.post("/form", newObj).then((res) => {
+    axios.post("http://localhost:3000/api/pushtodb", newObj).then((res) => {
       console.log(res.data);
     });
   };
+  
   return (
     <>
       <Form {...form}>
